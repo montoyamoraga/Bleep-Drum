@@ -17,14 +17,15 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 #include <Bounce2.h>
 #define BOUNCE_LOCK_OUT
 
+// instances of bounce buttons for red, green, blue, yellow
 Bounce debouncerRed = Bounce();
 Bounce debouncerGreen = Bounce();
 Bounce debouncerBlue = Bounce();
 Bounce debouncerYellow = Bounce();
 
 #define red_pin 17
-#define blue_pin 18
 #define green_pin 2
+#define blue_pin 18
 #define yellow_pin 19
 
 #define LED_invert 1
