@@ -200,7 +200,7 @@ void setup() {
       MIDI.begin(2);
       delay(20000);
     }
-    
+
     else if (digitalRead(18) == LOW) {
       analogWrite(5, 48); //yellow
       analogWrite(6, 16);
@@ -958,44 +958,31 @@ void BUTTONS() {
 
 
   if (shift == 1) {
-    //       if (bf1==1){
-
     if (bf1 == 1 || midi_note_check == 60) {
       B1_trigger = 1;
     }
     else {
       B1_trigger = 0;
     }
-    //    if (bf4==1){
-
     if (bf4 == 1 || midi_note_check == 65) {
       B4_trigger = 1;
     }
     else {
       B4_trigger = 0;
     }
-    //    if (bf2==1){
-
     if (bf2 == 1 || midi_note_check == 62) {
       B2_trigger = 1;
     }
     else {
       B2_trigger = 0;
     }
-    //   if (bf3==1){
     if (bf3 == 1 || midi_note_check == 64) {
       B3_trigger = 1;
     }
     else {
       B3_trigger = 0;
     }
-
   }
-
-
-
-  ////////////////////////////////////////////
-
 }
 
 int midi_note_on() {
@@ -1036,7 +1023,6 @@ int midi_note_on() {
 
       default:
         note = 0;
-
     }
   }
 
