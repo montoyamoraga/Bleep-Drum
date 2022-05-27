@@ -227,7 +227,6 @@ void setup() {
   TCCR2A = 1 << WGM21 | 0 << WGM20; /* CTC mode, reset on match */
   TCCR2B = 0 << CS22 | 1 << CS21 | 1 << CS20; /* clk, /8 prescaler */
 
-
   TCCR0B = B0000001;
   TCCR1B = B0000001;
 
@@ -817,28 +816,7 @@ void LEDS() {
   }
 
   preveigth = eigth;
-  /*
-    if (g > 1) {
-      g--;
-    }
-    if (g <= 1) {
-      g = 0;
-    }
 
-    if (r > 1) {
-      r--;
-    }
-    if (r <= 1) {
-      r = 0;
-    }
-
-    if (b > 1) {
-      b--;
-    }
-    if (b <= 1) {
-      b = 0;
-    }
-  */
   if (noise_mode == 0) {
     if (record == 0 && play == 0 ) {
 
