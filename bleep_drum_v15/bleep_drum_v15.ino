@@ -4,8 +4,8 @@
    https://bleeplabs.com/product/the-bleep-drum/
 
    Updated version for April 2020 rerelease
-   
-   This code is for 2020 hardware. Use the "legacy upgrade" code for older devices. 
+
+   This code is for 2020 hardware. Use the "legacy upgrade" code for older devices.
 
 */
 
@@ -123,6 +123,7 @@ int shift_time_latch;
 byte printer = 0;
 uint32_t erase_led;
 
+// setup() happens once at the beginning
 void setup() {
 
   if (printer == 1) {
@@ -130,29 +131,54 @@ void setup() {
   }
   cli();
 
-  pinMode (12, OUTPUT); pinMode (13, OUTPUT); pinMode (11, OUTPUT); pinMode (10, OUTPUT);
-  pinMode (9, OUTPUT); pinMode (5, OUTPUT);  pinMode (6, OUTPUT);
+  pinMode (5, OUTPUT);
+  pinMode (6, OUTPUT);
+  pinMode (9, OUTPUT);
+  pinMode (10, OUTPUT);
+  pinMode (11, OUTPUT);
+  pinMode (12, OUTPUT);
+  pinMode (13, OUTPUT);
   pinMode (16, OUTPUT);
 
-  pinMode (3, INPUT);     digitalWrite(3, HIGH);  //play
-  pinMode (4, INPUT);     digitalWrite (4, HIGH); //rec
-  pinMode (8, INPUT);     digitalWrite (8, HIGH); //tap
-  pinMode (7, INPUT);     digitalWrite(7, HIGH);   //shift
-  pinMode (12, OUTPUT);
+  // play button
+  pinMode (3, INPUT);
+  digitalWrite(3, HIGH);
 
-  pinMode (green_pin, INPUT_PULLUP);   //low left clap green
-  pinMode (yellow_pin, INPUT_PULLUP);   // low right kick yellow
-  pinMode (blue_pin, INPUT_PULLUP);    //Up Right tom Blue
-  pinMode (red_pin, INPUT_PULLUP);   // Up right pew red
+  // rec button
+  pinMode (4, INPUT);
+  digitalWrite (4, HIGH);
 
-  debouncerGreen.attach(green_pin);
-  debouncerGreen.interval(2); // interval in ms
-  debouncerYellow.attach(yellow_pin);
-  debouncerYellow.interval(2); // interval in ms
-  debouncerBlue.attach(blue_pin);
-  debouncerBlue.interval(2); // interval in ms
+  // tap button
+  pinMode (8, INPUT);
+  digitalWrite (8, HIGH);
+
+  // shift button
+  pinMode (7, INPUT);
+  digitalWrite(7, HIGH);
+
+
+  //low left clap green
+  pinMode (green_pin, INPUT_PULLUP);
+
+  // low right kick yellow
+  pinMode (yellow_pin, INPUT_PULLUP);
+
+  // up Right tom Blue
+  pinMode (blue_pin, INPUT_PULLUP);
+
+  // up right pew red
+  pinMode (red_pin, INPUT_PULLUP);
+
   debouncerRed.attach(red_pin);
-  debouncerRed.interval(2); // interval in ms
+  debouncerGreen.attach(green_pin);
+  debouncerBlue.attach(blue_pin);
+  debouncerYellow.attach(yellow_pin);
+
+  // intervals in ms
+  debouncerRed.interval(2);
+  debouncerGreen.interval(2);
+  debouncerBlue.interval(2);
+  debouncerYellow.interval(2);
 
   delay(100);
 
@@ -173,21 +199,17 @@ void setup() {
       analogWrite(9, 64); //Blue
       MIDI.begin(2);
       delay(20000);
-
     }
+    
     else if (digitalRead(18) == LOW) {
       analogWrite(5, 48); //yellow
       analogWrite(6, 16);
-
       MIDI.begin(4);
       delay(20000);
-
     }
-
     else {
       MIDI.begin(0);
     }
-
     MIDI.turnThruOff();
   }
 
@@ -555,6 +577,7 @@ ISR(TIMER2_COMPA_vect) {
 
 ///////////////////////////////////////////////////////////////////////////////loop
 
+// loop() happens after setup(), on repeat
 void loop() {
 
   cm = millis();
@@ -794,27 +817,27 @@ void LEDS() {
   }
 
   preveigth = eigth;
-/*
-  if (g > 1) {
-    g--;
-  }
-  if (g <= 1) {
-    g = 0;
-  }
+  /*
+    if (g > 1) {
+      g--;
+    }
+    if (g <= 1) {
+      g = 0;
+    }
 
-  if (r > 1) {
-    r--;
-  }
-  if (r <= 1) {
-    r = 0;
-  }
+    if (r > 1) {
+      r--;
+    }
+    if (r <= 1) {
+      r = 0;
+    }
 
-  if (b > 1) {
-    b--;
-  }
-  if (b <= 1) {
-    b = 0;
-  }
+    if (b > 1) {
+      b--;
+    }
+    if (b <= 1) {
+      b = 0;
+    }
   */
   if (noise_mode == 0) {
     if (record == 0 && play == 0 ) {
