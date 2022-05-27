@@ -22,23 +22,6 @@ Bounce debouncerGreen = Bounce();
 Bounce debouncerBlue = Bounce();
 Bounce debouncerYellow = Bounce();
 
-
-//old board
-/*
-  #define red_pin 2
-  #define blue_pin 19
-  #define green_pin 17
-  #define yellow_pin 18
-
-  #define LED_invert 0
-
-  #define play_pin 3
-  #define rec_pin 4
-  #define tap_pin 8
-  #define shift_pin 7
-
-*/
-
 #define red_pin 17
 #define blue_pin 18
 #define green_pin 2
@@ -50,7 +33,6 @@ Bounce debouncerYellow = Bounce();
 #define rec_pin 4
 #define tap_pin 7
 #define shift_pin 8
-
 
 uint32_t cm, pm;
 const char noise_table[] PROGMEM = {};
@@ -173,7 +155,6 @@ void setup() {
 
   delay(100);
 
-
   if (printer == 0) {
     if (digitalRead(17) == LOW) {
       analogWrite(6, 64); //green
@@ -217,7 +198,6 @@ void setup() {
   /* Enable interrupt on timer2 == 127, with clk/8 prescaler. At 16MHz,
      this gives a timer interrupt at 15625Hz. */
 
-
   TIMSK2 = (1 << OCIE2A);
   OCR2A = 50; // sets the compare. measured at 9813Hz
 
@@ -228,8 +208,6 @@ void setup() {
   TCCR0B = B0000001;
   TCCR1B = B0000001;
 
-
-
   sei();
   if (digitalRead(shift_pin) == 0) {
     noise_mode = 1;
@@ -237,7 +215,6 @@ void setup() {
   else {
     noise_mode = 0;
   }
-
 
 }
 
