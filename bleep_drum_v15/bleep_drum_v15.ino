@@ -5,7 +5,7 @@
 
    Updated version for April 2020 rerelease
    
-   This code is for 2020 hardware. Use the "legacy upgrage" code for older devices. 
+   This code is for 2020 hardware. Use the "legacy upgrade" code for older devices. 
 
 */
 
