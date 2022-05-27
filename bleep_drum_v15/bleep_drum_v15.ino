@@ -4,9 +4,7 @@
    https://bleeplabs.com/product/the-bleep-drum/
 
    Updated version for April 2020 rerelease
-
    This code is for 2020 hardware. Use the "legacy upgrade" code for older devices.
-
 */
 
 #include <MIDI.h>
@@ -187,20 +185,17 @@ void setup() {
       analogWrite(6, 64); //green
       MIDI.begin(3);
       delay(20000);
-
     }
     else if (digitalRead(2) == LOW) {
       analogWrite(5, 64); //RED
       MIDI.begin(1);
       delay(20000); // we're messing with the timers so this isn't actually 20000 Millis
-
     }
     else if (digitalRead(19) == LOW) {
       analogWrite(9, 64); //Blue
       MIDI.begin(2);
       delay(20000);
     }
-
     else if (digitalRead(18) == LOW) {
       analogWrite(5, 48); //yellow
       analogWrite(6, 16);
@@ -212,15 +207,12 @@ void setup() {
     }
     MIDI.turnThruOff();
   }
-
-  //pinMode (16, INPUT); digitalWrite (16, HIGH);
   digitalWrite(16, HIGH); //
   SPI.begin();
   SPI.setBitOrder(MSBFIRST);
 
   /* Enable interrupt on timer2 == 127, with clk/8 prescaler. At 16MHz,
      this gives a timer interrupt at 15625Hz. */
-
   TIMSK2 = (1 << OCIE2A);
   OCR2A = 50; // sets the compare. measured at 9813Hz
 
@@ -237,7 +229,6 @@ void setup() {
   else {
     noise_mode = 0;
   }
-
 }
 
 byte out_test, out_tick = 1;
@@ -348,14 +339,12 @@ ISR(TIMER2_COMPA_vect) {
   else {
     B4_seq_trigger = 0;
   }
-
   if (loopstep != prevloopstep && B1_loop_trigger == 1) {
     B1_seq_trigger = 1;
   }
   else {
     B1_seq_trigger = 0;
   }
-
   if (B3_trigger == 1 || B3_seq_trigger == 1) {
     index3 = 0;
     accumulator3 = 0;
@@ -545,7 +534,6 @@ ISR(TIMER2_COMPA_vect) {
     B1_seq_latch = 0;
   }
 
-
   accu_freq_2 += pf;
   index_freq_2 = (accu_freq_2 >> (6));
 
@@ -573,8 +561,6 @@ ISR(TIMER2_COMPA_vect) {
   }
 
 }
-
-///////////////////////////////////////////////////////////////////////////////loop
 
 // loop() happens after setup(), on repeat
 void loop() {
@@ -702,11 +688,9 @@ void loop() {
       pot4 = (log2 >> 8) + 1;
     }
   }
-
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////
 
 void RECORD() {
   pplaybutton = playbutton;
@@ -714,7 +698,6 @@ void RECORD() {
   if (pplaybutton == 1 && playbutton == 0 && shift == 1 && recordbutton == 1 ) {
     play = !play;
   }
-
 
   precordbutton = recordbutton;
   recordbutton = digitalRead(rec_pin);
@@ -728,11 +711,9 @@ void RECORD() {
     erase_latch = 0;
   }
 
-
   if (play == 0) {
     record = 0;
   }
-
 
   ////////////////////////////////////////////////////////////////////erase
 
@@ -759,34 +740,26 @@ void RECORD() {
   if (millis() - erase_led > 10000) {
     erase = 0;
   }
-
-
   if (record == 1)
   {
     if (B1_trigger == 1) {
       B1_sequence[loopstepf + banko] = 1;
       B1_freq_sequence[loopstepf + banko] = pot1;
-
     }
-
     if (B2_trigger == 1) {
       B2_sequence[loopstepf + banko] = 1;
       B2_freq_sequence[loopstepf + banko] = (pot2);
     }
-
     if (B4_trigger == 1) {
       B4_sequence[loopstepf + banko] = 1;
     }
-
     if (B3_trigger == 1) {
       B3_sequence[loopstepf + banko] = 1;
     }
-
-
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////
 
 void LEDS() {
 
@@ -819,14 +792,11 @@ void LEDS() {
 
   if (noise_mode == 0) {
     if (record == 0 && play == 0 ) {
-
       rout = 16;
       gout = 16;
       bout = 16;
     }
-
   }
-
 
   if (play == 1 && record == 0) {
     bout = b * !erase;
@@ -874,9 +844,7 @@ void LEDS() {
   }
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////
 
 void BUTTONS() {
   prevshift = shift;
@@ -916,7 +884,6 @@ void BUTTONS() {
       banko = 95;
     }
 
-
     if (tapb == 0) {
       play = 1;
       ratepot = (analogRead(1));
@@ -933,7 +900,6 @@ void BUTTONS() {
   }
 
   if ( banko == 63) {//red
-
     bankpr = 5;
     bankpg = 0;
     bankpb = 0;
@@ -948,14 +914,11 @@ void BUTTONS() {
     bankpg = 0;
     bankpb = 9;
   }
-
   if ( banko == 95) {
     bankpr = 6;
     bankpg = 8;
     bankpb = 0;
-
   }
-
 
   if (shift == 1) {
     if (bf1 == 1 || midi_note_check == 60) {
